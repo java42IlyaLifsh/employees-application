@@ -1,5 +1,5 @@
 package telran.employees.dto;
-
+//IlyaL
 public enum ReturnCode {
 OK, EMPLOYEE_ALREADY_EXISTS, EMPLOYEE_NOT_FOUND, SALARY_NOT_UPDATED, DEPARTMENT_NOT_UPDATED
 }
