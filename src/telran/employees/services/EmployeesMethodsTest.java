@@ -112,9 +112,7 @@ List<Employee> employeesList = Arrays.asList(empl1,empl2,empl3,empl4,empl5,empl6
 			assertTrue(employeesList.contains(employee));
 		}
 		
-//Variant 3 and tell me please, where did I go wrong? the compiler swears, but I did not understand why????????????????????		
-//		assertIterableEquals(employeesList.sort(((e1, e2)->Long.compare(e1.id, e2.id))), 
-//				((List<Employee>) employees.getEmployeesByAge(1, 400)).sort((q1,q2)->Long.compare(q1.id, q2.id))); 
+
 	
 	}
 
