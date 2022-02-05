@@ -50,7 +50,10 @@ InputOutput io = new ConsoleInputOutput();
 		io.writeObjectLine("ID "+id + "\n");
 		
 		//enter Name by readStringPredicate (only letters with capital first letter)
-		
+		/* V.R.
+		 * To write messages without mistakes is good.
+		 * "only letters, the first letter is capital"
+		 */
 		String name =io.readStringPredicate("enter name, onli laters, first capitalizd\t",
 				"input format incorected", s->s.matches("[A-Z][a-z]*"));
 		io.writeObjectLine("name "+name +  "\n");

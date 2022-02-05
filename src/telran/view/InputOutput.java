@@ -50,6 +50,10 @@ public interface InputOutput {
 	}
 	//2
 	default Integer readInt (String prompt, int min, int max) {
+		/* V.R.
+		 *  It is good idea to add min and max to the prompt.
+		 *  It will explain what to do
+		 */
 		String errorMessage = String.format("Please digits onli in range  %d ---%d   ",  min, max);
 		try {
 			return readObject(prompt, errorMessage, str-> {
@@ -75,6 +79,10 @@ public interface InputOutput {
 	
 	//4
 	default String readStringOptions(String prompt, Set<String>options) {
+		/* V.R.
+		 *  It is possible (may be better) to add the list of options to prompt here,
+		 *  not in test.
+		 */
 		return readStringPredicate(prompt, "Out of set   ", str-> {
 			return options.contains(str);
 		});
