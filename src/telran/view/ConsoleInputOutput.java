@@ -1,5 +1,5 @@
 package telran.view;
-//IlyaL_HW36
+//IlyaL_HW36  
 import java.util.Scanner;
 
 public class ConsoleInputOutput implements InputOutput {
