@@ -8,6 +8,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.StreamSupport;
 public class EmployeesMethodsMapsImpl implements EmployeesMethods {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public EmployeesMethodsMapsImpl(String fileName) {
+		this.fileName = fileName;
+	}
+
+	private transient String fileName; //field won't be serialized
  private HashMap<Long, Employee> mapEmployees = new HashMap<>(); //key employee's id, value - employee
  private TreeMap<Integer, List<Employee>> employeesAge= new TreeMap<>(); //key - age, value - list of employees with the same age
  private TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>(); //key - salary,
@@ -135,6 +144,18 @@ public class EmployeesMethodsMapsImpl implements EmployeesMethods {
 		empl.department = newDepartment;
 		employeesDepartment.computeIfAbsent(empl.department, k -> new LinkedList<Employee>()).add(empl);
 		return ReturnCode.OK;
+	}
+
+	@Override
+	public void restore() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
