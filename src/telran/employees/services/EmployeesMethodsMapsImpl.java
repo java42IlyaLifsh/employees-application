@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.StreamSupport;
+import java.io.*;
 public class EmployeesMethodsMapsImpl implements EmployeesMethods {
 	/**
 	 * 
@@ -148,13 +149,28 @@ public class EmployeesMethodsMapsImpl implements EmployeesMethods {
 
 	@Override
 	public void restore() {
-		// TODO Auto-generated method stub
+		File inputFile = new File(fileName);
+		if (inputFile.exists()) {
+			try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(inputFile))) {
+				EmployeesMethodsMapsImpl employeesFromFile = (EmployeesMethodsMapsImpl) input.readObject();
+				this.employeesAge = employeesFromFile.employeesAge;
+				this.employeesDepartment =  employeesFromFile.employeesDepartment;
+				this.employeesSalary = employeesFromFile.employeesSalary;
+				this.mapEmployees = employeesFromFile.mapEmployees;
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			} 
+		}
 		
 	}
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
+		try(ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))) {
+			output.writeObject(this);
+		} catch (Exception e) {
+			throw new RuntimeException(e.toString());
+		}
 		
 	}
 
