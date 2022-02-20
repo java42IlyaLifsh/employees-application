@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import telran.employees.services.*;
+import telran.net.Sender;
+import telran.net.TcpSender;
 import telran.view.*;
 import java.io.*;
 public class EmployeesAppl {
@@ -12,17 +14,13 @@ static Map<String, String> properties;
 static InputOutput io = new ConsoleInputOutput();
 	public static void main(String[] args) {
 		
-		if (args.length < 1) {
-			io.writeObjectLine("Usage - argument should contain configuration file name");
-			return;
+		Sender sender = null;
+		try {
+			sender = new TcpSender("localhost", 2000);
+		} catch (Exception e) {
+			io.writeObjectLine(e.toString());
 		}
-		//Configuration file contains text like employeesDataFile=employees.data
-		//Apply BufferedReader for reading configuration
-		String fileName = getFileName(args[0]);
-		if (fileName == null) {
-			return;
-		}
-		EmployeesMethods employeesMethods = new EmployeesMethodsMapsImpl(fileName);
+		EmployeesMethods employeesMethods = new EmployeesMethodsTcpProxy(sender);
 		employeesMethods.restore();
 		HashSet<String> departments = new HashSet<>(Arrays.asList("QA", "Development", "HR", "Management"));
 		Menu menu = new Menu("Employees Application", EmployeeActions.getActionItems(employeesMethods, departments));
