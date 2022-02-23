@@ -5,14 +5,18 @@ import telran.employees.dto.ReturnCode;
 import telran.employees.services.EmployeesMethods;
 import telran.net.Sender;
 import static telran.employees.net.dto.ApiConstants.*;
-public class EmployeesMethodsTcpProxy implements EmployeesMethods {
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.HashMap;
+public class EmployeesMethodsProxy implements EmployeesMethods, Closeable {
 private Sender sender;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EmployeesMethodsTcpProxy(Sender sender) {
+	public EmployeesMethodsProxy(Sender sender) {
 		this.sender = sender;
 	}
 
@@ -24,8 +28,8 @@ private Sender sender;
 
 	@Override
 	public ReturnCode removeEmployee(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sender.send(REMOVE_EMPLOYEE, id);
 	}
 
 	@Override
@@ -36,44 +40,53 @@ private Sender sender;
 
 	@Override
 	public Employee getEmployee(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sender.send(GET_EMPLOYEE, id);
 	}
 
 	@Override
 	public Iterable<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer[] fromTo = {ageFrom, ageTo};
+		return sender.send(GET_EMPLOYEES_AGE, fromTo);
 	}
 
 	@Override
 	public Iterable<Employee> getEmployeesBySalary(int salaryFrom, int salaryTo) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer[] fromTo = {salaryFrom, salaryTo};
+		return sender.send(GET_EMPLOYEES_SALARY, fromTo);
 	}
 
 	@Override
 	public Iterable<Employee> getEmployeesByDepartment(String department) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sender.send(GET_EMPLOYEES_DEPARTMENT, department);
 	}
 
 	@Override
 	public Iterable<Employee> getEmployeesByDepartmentAndSalary(String department, int salaryFrom, int salaryTo) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put(DEPARTMENT, department);
+		Integer[] fromTo = {salaryFrom, salaryTo};
+		map.put(FROM_TO, fromTo);
+		return sender.send(GET_EMPLOYEES_DEPARTMENT_SALARY, map);
 	}
 
 	@Override
 	public ReturnCode updateSalary(long id, int newSalary) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put(ID, id);
+		
+		map.put(SALARY, newSalary);
+		return sender.send(UPDATE_SALARY, map);
 	}
 
 	@Override
 	public ReturnCode updateDepartment(long id, String newDepartment) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put(ID, id);
+		
+		map.put(DEPARTMENT, newDepartment);
+		return sender.send(UPDATE_DEPARTMENT, map);
 	}
 
 	@Override
@@ -86,6 +99,12 @@ private Sender sender;
 	public void save() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void close() throws IOException {
+		sender.close();
+		
 	}
 
 }

@@ -18,7 +18,8 @@ public TcpServer(int port, ApplProtocol protocol) throws Exception{
 			try {
 				Socket socket = serverSocket.accept();
 				TcpClientServer client = new TcpClientServer(socket, protocol);
-				client.run();
+				Thread threadClient = new Thread(client);
+				threadClient.start();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
