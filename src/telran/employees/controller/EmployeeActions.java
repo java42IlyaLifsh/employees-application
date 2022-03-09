@@ -43,7 +43,7 @@ private static void exit(InputOutput io) {
 	try {
 		((Closeable)employees).close();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
+		
 		e.printStackTrace();
 	}
 }

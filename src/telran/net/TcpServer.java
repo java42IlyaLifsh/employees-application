@@ -21,7 +21,7 @@ public TcpServer(int port, ApplProtocol protocol) throws Exception{
 				Thread threadClient = new Thread(client);
 				threadClient.start();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 				break;
 			}
