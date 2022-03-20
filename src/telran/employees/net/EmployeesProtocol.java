@@ -21,6 +21,7 @@ private EmployeesMethods employees;
 	@Override
 	public Response getResponse(Request request) {
 		switch(request.requestType) {
+		//FIXME get rid of the following sitch operator
 		case ADD_EMPLOYEE: return _employee_add(request.requestData);
 		case GET_EMPLOYEES: return _get(request.requestData);
 		case GET_EMPLOYEE: return _employee_get(request.requestData);

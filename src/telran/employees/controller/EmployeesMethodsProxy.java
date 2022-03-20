@@ -91,13 +91,11 @@ private Sender sender;
 
 	@Override
 	public void restore() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -28,8 +28,8 @@ public TcpServer(int port, ApplProtocol protocol) throws Exception{
 			try {
 				Socket socket = serverSocket.accept();
 				TcpClientServer client = new TcpClientServer(socket, protocol);
-				Thread threadClient = new Thread(client);
-				executor.execute(threadClient);
+				
+				executor.execute(client);
 			} catch (Exception e) {
 				
 				e.printStackTrace();
@@ -37,6 +37,14 @@ public TcpServer(int port, ApplProtocol protocol) throws Exception{
 			}
 		}
 
+	}
+	public void shutdown(int timeout) {
+		//TODO - solution of a graceful shutdown
+		//What is a graceful server shutdown
+		//1. No receive new clients
+		//2. Running getResponse should be performed
+		//3. After SocketTimeoutException exiting from the loop for each client (to trigger SocketTimeoutException
+		// you should apply method setSoTimeout for the client sockets with the given timeout)
 	}
 
 }
