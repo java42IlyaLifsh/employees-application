@@ -1,5 +1,5 @@
 package telran.net;
-//IlyaL 
+//IlyaL   
 import java.io.IOException;
 import java.net.*;
 import java.util.Iterator;
@@ -51,7 +51,7 @@ public TcpServer(int port, ApplProtocol protocol) throws Exception{
 		System.out.println("TcpServer finished!");
 	}
 	public void shutdown(int timeout) {
-		//TODO - solution of a graceful shutdown
+		// - solution of a graceful shutdown
 		//What is a graceful server shutdown
 		//1. No receive new clients
 		//2. Running getResponse should be performed
