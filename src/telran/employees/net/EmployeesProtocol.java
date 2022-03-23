@@ -1,5 +1,5 @@
 package telran.employees.net;
-
+//IlyaL
 import telran.employees.dto.Employee;
 import telran.employees.dto.ReturnCode;
 import telran.employees.services.EmployeesMethods;
@@ -11,7 +11,8 @@ import java.util.*;
 import static telran.employees.net.dto.ApiConstants.*
 ;
 
-import java.io.Serializable;public class EmployeesProtocol implements ApplProtocol {
+import java.io.Serializable;
+import java.lang.reflect.Method;public class EmployeesProtocol implements ApplProtocol {
 public EmployeesProtocol(EmployeesMethods employees) {
 		this.employees = employees;
 	}
@@ -20,6 +21,19 @@ private EmployeesMethods employees;
 
 	@Override
 	public Response getResponse(Request request) {
+		String requestComand = request.requestType.replaceAll("/", "_");
+		try {
+			Method method = EmployeesProtocol.class.getDeclaredMethod(requestComand, Serializable.class);
+			method.setAccessible(true);
+			return	 (Response) method.invoke(this, request.requestData);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return  new Response(ResponseCode.UNKNOWN_REQUEST,
+					request.requestType + " not implemented");
+		
+		/*
 		switch(request.requestType) {
 		//FIXME get rid of the following sitch operator
 		case ADD_EMPLOYEE: return _employee_add(request.requestData);
@@ -35,7 +49,7 @@ private EmployeesMethods employees;
 		default: return new Response(ResponseCode.UNKNOWN_REQUEST,
 				request.requestType + " not implemented");
 		}
-		
+		*/
 	}
 	
 
