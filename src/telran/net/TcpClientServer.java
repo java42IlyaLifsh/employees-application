@@ -1,4 +1,5 @@
 package telran.net;
+//IlyaL 
 import java.io.*;
 import java.net.*;
 
@@ -8,6 +9,9 @@ Socket socket;
 ObjectInputStream reader;
 ObjectOutputStream writer;
 ApplProtocol protocol;
+boolean shutdown = false;
+int clientId;
+
 public TcpClientServer(Socket socket, ApplProtocol protocol) throws Exception{
 	this.socket = socket;
 	
@@ -36,6 +40,9 @@ public TcpClientServer(Socket socket, ApplProtocol protocol) throws Exception{
 			e.printStackTrace();
 		}
 
+	}
+	public void shutdown() {
+		shutdown = true;
 	}
 
 }
